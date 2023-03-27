@@ -48,11 +48,9 @@ exports.updateUser = async (req, res) => {
     new: true,
   });
 
-  console.log(updateUser);
-
   res.status(200).json({
     status: 200,
-    message: "Success hapus data mahasiswa",
+    message: "Success mengubah data mahasiswa",
     data: updateUser,
   });
 };
@@ -62,7 +60,7 @@ exports.deleteUser = async (req, res) => {
   const deleteUser = await User.findOneAndRemove({ npm: npm });
   res.status(200).json({
     status: 200,
-    message: "Success hapus data mahasiswa",
+    message: "Success menghapus data mahasiswa",
     data: deleteUser,
   });
 };
