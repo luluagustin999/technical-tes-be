@@ -10,6 +10,7 @@ router.get("/", (req, res) => {
 router.post("/mahasiswa/add", userController.createUser)
 router.get("/mahasiswa", userController.getUser)
 router.put("/mahasiswa/:id", userController.updateUser)
+router.put("/mahasiswa/:id", userController.deleteUser)
 
 module.exports = router;
 
