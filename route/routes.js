@@ -9,8 +9,9 @@ router.get("/", (req, res) => {
 
 router.post("/mahasiswa/add", userController.createUser)
 router.get("/mahasiswa", userController.getUser)
-router.put("/mahasiswa/:id", userController.updateUser)
-router.delete("/mahasiswa/:id", userController.deleteUser)
+router.get("/mahasiswa/:npm", userController.getUserByNpm)
+router.put("/mahasiswa/:npm", userController.updateUser)
+router.delete("/mahasiswa/:npm", userController.deleteUser)
 
 module.exports = router;
 

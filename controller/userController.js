@@ -1,4 +1,4 @@
-const User = require("../model/userModel")
+const User = require("../model/userModel");
 
 exports.createUser = async (req, res) => {
   const user = new User({
@@ -6,42 +6,63 @@ exports.createUser = async (req, res) => {
     npm: req.body.npm,
     alamat: req.body.alamat,
     hobi: req.body.hobi,
-  })
+  });
 
   try {
-    const save = await user.save()
-    res.status(201).json ({
-      message : "Success menambahkan data mahasiswa",
+    const save = await user.save();
+    res.status(201).json({
+      message: "Success menambahkan data mahasiswa",
       data: save,
     });
   } catch (error) {
-    res.send(error)
+    res.send(error);
   }
-}
+};
 
 exports.getUser = async (req, res) => {
-
   try {
     const results = await User.find();
     res.status(200).json({
-      message : "Success menampilkan seluruh data mahasiswa",
+      message: "Success menampilkan seluruh data mahasiswa",
       data: results,
     });
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-}
+};
+
+exports.getUserByNpm = async (req, res) => {
+  const { npm } = req.params;
+  const getUserByNpm = await User.find({ npm: npm });
+  res.status(200).json({
+    status: 200,
+    message: "Success menampilkan detail data mahasiswa",
+    data: getUserByNpm,
+  });
+};
+
 
 exports.updateUser = async (req, res) => {
-  const updateUser = await User.findOneAndUpdate(req.params.id, req.body, {
+  const { npm } = req.params;
+  const updateUser = await User.findOneAndUpdate({ npm: npm }, req.body, {
     new: true,
-  })
-  res.json(updateUser)
-}
+  });
+
+  console.log(updateUser);
+
+  res.status(200).json({
+    status: 200,
+    message: "Success hapus data mahasiswa",
+    data: updateUser,
+  });
+};
 
 exports.deleteUser = async (req, res) => {
-  const deleteUser = await User.findOneAndDelete(req.params.id, req.body, {
-    new: true,
-  })
-  res.json(deleteUser)
-}
+  const { npm } = req.params;
+  const deleteUser = await User.findOneAndRemove({ npm: npm });
+  res.status(200).json({
+    status: 200,
+    message: "Success hapus data mahasiswa",
+    data: deleteUser,
+  });
+};
