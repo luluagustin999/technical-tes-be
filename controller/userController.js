@@ -22,7 +22,7 @@ exports.createUser = async (req, res) => {
 exports.getUser = async (req, res) => {
 
   try {
-    const results = await User.find().select("_id nama npm alamat hobi");
+    const results = await User.find();
     res.status(200).json({
       message : "Success menampilkan seluruh data mahasiswa",
       data: results,
@@ -37,4 +37,11 @@ exports.updateUser = async (req, res) => {
     new: true,
   })
   res.json(updateUser)
+}
+
+exports.deleteUser = async (req, res) => {
+  const deleteUser = await User.findOneAndDelete(req.params.id, req.body, {
+    new: true,
+  })
+  res.json(deleteUser)
 }

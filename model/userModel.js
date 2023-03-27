@@ -1,5 +1,6 @@
-const mongoose = require("mongoose")
-const Schema = mongoose.Schema
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
+const pick = require("lodash/pick");
 
 const userSchema = new Schema({
   nama: {
@@ -22,19 +23,23 @@ const userSchema = new Schema({
     jalan: {
       type: String,
       required: true,
-    }
+    },
   },
   hobi: {
     type: [String],
     required: true,
   },
-})
+});
 
-userSchema.method("toJSON", function(){
+
+userSchema.methods.toJSON = function () {
   const {_id, ...object} = this.toObject()
-  object.id = _id
-  return object
-})
+  object.id = _id;
+  let user = this;
+  let userObject = user.toObject();
+  return pick(object, userObject, ["id", "nama", "npm", "alamat", "hobi"]);
+}
+
 
 
 module.exports = mongoose.model("User", userSchema)
